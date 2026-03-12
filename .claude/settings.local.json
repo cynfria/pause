@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(file /Users/cynthiac/Development/pause/assets/icon.png && python3 -c \"import struct,zlib; d=open\\('/Users/cynthiac/Development/pause/assets/icon.png','rb'\\).read\\(\\); print\\('size:', struct.unpack\\('>II', d[16:24]\\)\\)\")",
+      "Bash(python3 -c \"\nimport zlib, struct\n\ndata = open\\('/Users/cynthiac/Development/pause/assets/icon.png','rb'\\).read\\(\\)\ni = 8\nchunks = {}\nwhile i < len\\(data\\):\n    length = struct.unpack\\('>I', data[i:i+4]\\)[0]\n    ctype = data[i+4:i+8].decode\\(\\)\n    cdata = data[i+8:i+8+length]\n    chunks.setdefault\\(ctype, []\\).append\\(cdata\\)\n    i += 12 + length\n\nraw = zlib.decompress\\(b''.join\\(chunks['IDAT']\\)\\)\nW, H = 32, 32\nfound = []\nfor y in range\\(H\\):\n    row_start = y * \\(1 + W*4\\)\n    for x in range\\(W\\):\n        px = row_start + 1 + x*4\n        r,g,b,a = raw[px], raw[px+1], raw[px+2], raw[px+3]\n        if a > 10:\n            found.append\\(\\(x,y,r,g,b,a\\)\\)\nprint\\(f'Total non-transparent pixels: {len\\(found\\)}'\\)\nif found:\n    print\\('Sample:', found[:5]\\)\n\")",
+      "Bash(python3 -c \"\nimport zlib, struct\ndata = open\\('/Users/cynthiac/Development/pause/assets/icon.png','rb'\\).read\\(\\)\ni = 8; chunks = {}\nwhile i < len\\(data\\):\n    length = struct.unpack\\('>I', data[i:i+4]\\)[0]\n    ctype = data[i+4:i+8].decode\\(\\)\n    chunks.setdefault\\(ctype, []\\).append\\(data[i+8:i+8+length]\\)\n    i += 12 + length\nraw = zlib.decompress\\(b''.join\\(chunks['IDAT']\\)\\)\nW,H = struct.unpack\\('>II', chunks['IHDR'][0][0:8]\\)\nprint\\(f'Size: {W}x{H}'\\)\nfound = [\\(x,y,raw[y*\\(1+W*4\\)+1+x*4:y*\\(1+W*4\\)+1+x*4+4]\\) for y in range\\(H\\) for x in range\\(W\\) if raw[y*\\(1+W*4\\)+1+x*4+3] > 10]\nprint\\(f'Non-transparent pixels: {len\\(found\\)}'\\)\nif found: print\\('Sample:', found[:3]\\)\n\")"
+    ]
+  }
+}

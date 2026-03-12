@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pause</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Eye Break Card -->
+  <section class="card">
+    <h2><span class="icon">👁</span> Eye Break</h2>
+    <p class="status" id="eye-status">
+      Next break in <strong id="eye-time">20:00</strong>
+    </p>
+    <div class="progress-wrap">
+      <div class="progress-bar" id="eye-progress"></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" id="btn-snooze">Snooze 5 min</button>
+      <button class="btn btn-secondary" id="btn-reset">Reset</button>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Footer -->
+  <footer>
+    <span class="app-name">Pause</span>
+    <button class="btn btn-quit" id="btn-quit">Quit</button>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

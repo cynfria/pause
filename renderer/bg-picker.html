@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Change Background</title>
+  <link rel="stylesheet" href="bg-picker.css" />
+</head>
+<body>
+  <div class="card">
+
+    <div class="header">
+      <span class="title">Background</span>
+      <button class="btn-close" id="btn-close">&#x2715;</button>
+    </div>
+
+    <div class="preview" id="preview">
+      <div class="text-overlay">
+        <div class="countdown">20</div>
+        <p class="instruction">Look into the distance</p>
+      </div>
+    </div>
+
+    <div class="presets">
+      <button class="thumb selected" data-preset="bg-1" style="background-image: url('../assets/bg-1.png')"></button>
+      <button class="thumb" data-preset="bg-2" style="background-image: url('../assets/bg-2.png')"></button>
+      <button class="thumb" data-preset="bg-3" style="background-image: url('../assets/bg-3.png')"></button>
+      <button class="thumb" data-preset="bg-4" style="background-image: url('../assets/bg-4.png')"></button>
+    </div>
+
+    <button class="btn-choose" id="btn-choose">Choose an image</button>
+
+  </div>
+  <script src="bg-picker.js"></script>
+</body>
+</html>

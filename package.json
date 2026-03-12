@@ -1,0 +1,34 @@
+{
+  "name": "pause",
+  "version": "1.0.0",
+  "description": "macOS menubar app for healthy work habits",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "node scripts/create-icon.js",
+    "start": "electron .",
+    "dist": "electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.cynthiac.pause",
+    "productName": "Pause",
+    "files": [
+      "main.js",
+      "preload.js",
+      "preload-picker.js",
+      "preload-settings.js",
+      "renderer/**/*",
+      "assets/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "assets/icon.png"
+    },
+    "dmg": {
+      "sign": false
+    }
+  },
+  "devDependencies": {
+    "electron": "^29.0.0",
+    "electron-builder": "^26.8.1"
+  }
+}

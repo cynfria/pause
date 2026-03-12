@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --text-color: #202D63;
+  --glow-rgb: 255, 255, 255;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/bg-1.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+
+.text-overlay {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 80px;
+  border-radius: 50%;
+  isolation: isolate;
+}
+
+.text-overlay::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center,
+    rgba(var(--glow-rgb), 0.55) 0%,
+    rgba(var(--glow-rgb), 0.25) 45%,
+    transparent 72%
+  );
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.countdown {
+  font-size: 140px;
+  font-weight: 300;
+  color: var(--text-color);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -4px;
+  transition: color 0.4s ease;
+}
+
+.instruction {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-color);
+  letter-spacing: 0.1px;
+  transition: color 0.4s ease;
+}
+
+.btn-skip {
+  -webkit-app-region: no-drag;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 24px;
+  border-radius: 20px;
+  border: none;
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.btn-skip:hover {
+  background: rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Settings</title>
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <span class="title">Time Settings</span>
+      <button class="btn-close" id="btn-close">&#x2715;</button>
+    </div>
+    <div class="row">
+      <span class="label">Break every</span>
+      <div class="input-box">
+        <input type="number" id="interval" min="1" max="120" />
+        <span class="unit">minutes</span>
+      </div>
+    </div>
+    <div class="row">
+      <span class="label">Look away for</span>
+      <div class="input-box">
+        <input type="number" id="duration" min="5" max="300" />
+        <span class="unit">seconds</span>
+      </div>
+    </div>
+    <button class="btn-save" id="btn-save">Save</button>
+  </div>
+  <script src="settings.js"></script>
+</body>
+</html>

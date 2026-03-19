@@ -1,6 +1,7 @@
 const { app, Tray, Menu, Notification, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs   = require('fs');
+const { spawn } = require('child_process');
 
 // Menubar app — no Dock icon
 app.dock.hide();
@@ -136,6 +137,7 @@ function tick() {
       startRest();
     } else if (state === 'rest') {
       if (breakWin && !breakWin.isDestroyed()) breakWin.close();
+      spawn('afplay', [path.join(__dirname, 'assets', 'complete.mp3')]);
       notify('Eye break done!', 'Great job. Timer reset to 20 minutes.');
       startIdle();
     }

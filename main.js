@@ -31,7 +31,6 @@ function sendBg() {
 // ── Timer constants ──────────────────────────────────────────────────────────
 let intervalMin = 20;
 let durationSec = 20;
-const SNOOZE_SEC = 5 * 60;
 
 function EYE_INTERVAL_SEC() { return intervalMin * 60; }
 function EYE_REST_SEC()     { return durationSec; }
@@ -60,9 +59,7 @@ function notify(title, body) {
 }
 
 function getTotal() {
-  return state === 'rest' ? EYE_REST_SEC()
-       : state === 'snoozed' ? SNOOZE_SEC
-       : EYE_INTERVAL_SEC();
+  return state === 'rest' ? EYE_REST_SEC() : EYE_INTERVAL_SEC();
 }
 
 function sendState() {
@@ -72,14 +69,12 @@ function sendState() {
 
 function rebuildMenu() {
   const label =
-    state === 'rest'    ? `Look away! ${fmt(remaining)}` :
-    state === 'snoozed' ? `💤 Snoozed — ${fmt(remaining)}` :
-                          `Next break in ${fmt(remaining)}`;
+    state === 'rest' ? `Look away! ${fmt(remaining)}` :
+                       `Next break in ${fmt(remaining)}`;
 
   tray.setContextMenu(Menu.buildFromTemplate([
     { label, enabled: false },
     { type: 'separator' },
-    { label: 'Snooze 5 min', enabled: state !== 'rest', click: snooze },
     { label: 'Reset timer', click: reset },
     { type: 'separator' },
     { label: 'Change background…', click: openBgPicker },
@@ -90,10 +85,7 @@ function rebuildMenu() {
 }
 
 function updateTray() {
-  const title =
-    state === 'rest'    ? fmt(remaining) :
-    state === 'snoozed' ? `💤 ${fmt(remaining)}` :
-                          fmt(remaining);
+  const title = fmt(remaining);
   tray.setTitle(title);
   rebuildMenu();
   sendState();
@@ -118,12 +110,6 @@ function startRest() {
   updateTray();
 }
 
-function snooze() {
-  state     = 'snoozed';
-  remaining = SNOOZE_SEC;
-  updateTray();
-}
-
 function reset() {
   startIdle();
 }
@@ -133,7 +119,7 @@ function tick() {
   remaining -= 1;
 
   if (remaining <= 0) {
-    if (state === 'idle' || state === 'snoozed') {
+    if (state === 'idle') {
       startRest();
     } else if (state === 'rest') {
       if (breakWin && !breakWin.isDestroyed()) breakWin.close();
@@ -241,8 +227,8 @@ function openSettings() {
 // ── App ready ─────────────────────────────────────────────────────────────────
 app.whenReady().then(() => {
   const { nativeImage } = require('electron');
-  const icon = nativeImage.createFromPath(path.join(__dirname, 'assets', 'icon.png'));
-  icon.setTemplateImage(true);
+  const rawIcon = nativeImage.createFromPath(path.join(__dirname, 'assets', 'tray-icon-custom.png'));
+  const icon = rawIcon.resize({ width: 18, height: 18 });
   tray = new Tray(icon);
   tray.setToolTip('Pause');
 
@@ -294,7 +280,6 @@ app.whenReady().then(() => {
 
   ipcMain.on('get-app-path', (e) => { e.returnValue = __dirname; });
 
-  ipcMain.on('snooze', snooze);
   ipcMain.on('reset',  reset);
   ipcMain.on('skip',   () => { if (breakWin && !breakWin.isDestroyed()) breakWin.close(); startIdle(); });
   ipcMain.on('quit',   () => app.quit());

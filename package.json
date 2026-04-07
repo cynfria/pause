@@ -21,10 +21,10 @@
     ],
     "mac": {
       "category": "public.app-category.productivity",
-      "icon": "assets/icon.png"
-    },
-    "dmg": {
-      "sign": false
+      "icon": "assets/icon.png",
+      "notarize": {
+        "teamId": "C69TWR8LB7"
+      }
     }
   },
   "devDependencies": {
